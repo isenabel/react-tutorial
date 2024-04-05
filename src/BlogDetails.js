@@ -1,27 +1,26 @@
 import { useNavigate, useParams } from "react-router-dom";
-import useFetch from "./useFetch";
+import useGetBlog from "./useGetBlog";
+import { ref, remove } from "firebase/database";
+import { db } from "./firebase";
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const { data: blog, isPending, error } = useFetch('http://localhost:8000/blogs/' + id);
+  const { data: blog, isPending } = useGetBlog(id);
   const navigate = useNavigate();
 
   const handleClick = () => {
-    fetch('http://localhost:8000/blogs/' + blog.id, {
-      method: 'DELETE'
-    }).then(() => {
+    remove(ref(db, "blogs/" + id)).then(() => {
       navigate('/');
     });
   }
 
   return (
     <div className="blog-details">
-      {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
       {blog && (
         <article>
           <h2>{blog.title}</h2>
-          <p>Written by {blog.author}</p>
+          <p>Written by: <b>{blog.author}</b></p>
           <div>{blog.body}</div>
           <button onClick={handleClick}>Delete</button>
         </article>

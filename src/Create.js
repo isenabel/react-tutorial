@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ref, set } from "firebase/database";
+import { ref, push } from "firebase/database";
 import { db } from './firebase';
 
 const Create = () => {
@@ -11,12 +11,14 @@ const Create = () => {
   const navigate = useNavigate();
 
   function addBlog({ title, body, author }) {
-    const randomId = crypto.randomUUID();
 
-    set(ref(db, "blogs/" + randomId), {
+    push(ref(db, "blogs/"), {
       title: title,
       body: body,
       author: author
+    }).then(() => {
+      navigate('/');
+      setIsPending(false);
     });
   }
 
@@ -27,15 +29,6 @@ const Create = () => {
     setIsPending(true);
 
     addBlog(blog);
-
-    fetch('http://localhost:8000/blogs', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(blog)
-    }).then(() => {
-      setIsPending(false);
-      navigate('/');
-    })
   }
 
   return (

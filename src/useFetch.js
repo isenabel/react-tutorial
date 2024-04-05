@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { getDatabase, ref, set } from "firebase/database";
-import { db } from "./firebase";
 
 const useFetch = (url) => {
 
