@@ -22,4 +22,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ### `npx json-server --watch data/db.json --port 8000`
 
-Run the database.
+Run the database. (Not needed anymore)
