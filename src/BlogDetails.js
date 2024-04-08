@@ -1,17 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
-import useGetBlog from "./useGetBlog";
-import { ref, remove } from "firebase/database";
-import { db } from "./firebase";
+import useFetch from "./useFetch";
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const { data: blog, isPending } = useGetBlog(id);
+  const { data: blog, isPending } = useFetch( 'http://localhost:4000/blogs/' + id);
   const navigate = useNavigate();
 
   const handleClick = () => {
-    remove(ref(db, "blogs/" + id)).then(() => {
-      navigate('/');
-    });
+    // remove(ref(db, "blogs/" + id)).then(() => {
+    //   navigate('/');
+    // });
   }
 
   return (
