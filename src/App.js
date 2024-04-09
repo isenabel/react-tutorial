@@ -1,4 +1,5 @@
 import NavBar from './Navbar';
+import Footer from './Footer';
 import Home from './Home';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Create from './Create';
@@ -19,6 +20,7 @@ export default function App() {
             <Route path='*' element={<NotFound />}></Route>
           </Routes>
         </div>
+        <Footer />
       </div>
     </Router>
   );
