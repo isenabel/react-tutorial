@@ -55,29 +55,63 @@ a {
 /* base styles */
 
 :root {
-  --primaryColor: #f1356d;
-  --fontColor: #001043;
-  --btnTextColor: #fff;
+  --titlePrimaryColor: #abbdff;
+  --titleSecundaryColor: #00aed1;
+  --authorTextColor: #c1c1c1;
+  --bodyTextColor: #f3f3f3;
+  --btnTextColor: #001526;
+  --btnFillColor: #abbdff;
   --btnBorderRadius: 8px;
 }
 
 #root {
   width: 100vw;
   height: 100vw;
-  /* background-color: #0C2D48; */
+  background-color: #001526;
   font-family: "Roboto";
-  color: var(--fontColor);
+  color: var(--bodyTextColor);
+}
+
+.App h1 {
+  color: var(--titlePrimaryColor);
+  font-size: 20px;
+}
+
+.App h2 {
+  color: var(--titleSecundaryColor);
+  font-size: 26px;
+}
+
+.App button {
+  padding: 0.7em 1em;
+  border-radius: var(--btnBorderRadius);
+  background-color: var(--btnFillColor);
+  color: var(--btnTextColor);
+  font-weight: 700;
+}
+
+.actionBtn:hover {
+  background-color: #909ed3;
 }
 
 .navbar {
   width: 100%;
   padding: 20px;
   display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #002e54;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.navbar > div {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 600px;
-  margin: 0 auto;
-  border-bottom: 1px solid #f2f2f2;
 }
 
 .logoContainer {
@@ -87,13 +121,12 @@ a {
 
 .logoContainer img {
   display: block;
-  height: 20px;
+  height: 25px;
   margin-right: 10px;
 }
 
 .navbar h1 {
   font-size: 26px;
-  color: #f1356d;
   line-height: 1;
   white-space: nowrap;
 }
@@ -104,11 +137,12 @@ a {
   margin-left: 16px;
   text-decoration: none;
   padding: 6px;
-  color: #00aed1;
+  color: var(--titlePrimaryColor);
 }
 .navbar a:hover {
-  color: #f1356d;
+  color: var(--titleSecundaryColor);
 }
+
 .content {
   max-width: 600px;
   margin: 40px auto;
@@ -122,11 +156,10 @@ a {
   border-bottom: 1px solid #fafafa;
 }
 .blog-preview:hover {
-  box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.4);
 }
 .blog-preview h2 {
   font-size: 20px;
-  color: #f1356d;
   margin-bottom: 8px;
 }
 .blog-preview a{
@@ -134,18 +167,25 @@ a {
   text-decoration: none;
 }
 
+.author {
+  color: var(--authorTextColor);
+  font-size: 13px;
+}
+
 /* blog details page */
 .blog-details h2 {
-  font-size: 20px;
-  color: #f1356d;
   margin-bottom: 10px;
 }
 .blog-details div {
   margin: 20px 0;
+  font-size: 16px;
 }
 .blog-details button {
-  background: #f1356d;
-  color: #fff;
+  background: var(--titlePrimaryColor);
+  color: var(--btnTextColor);
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
   border: 0;
   padding: 8px;
   border-radius: 8px;
@@ -195,10 +235,11 @@ a {
 .deleteMsg button {
   display: block;
   width: fit-content;
-  background-color: var(--primaryColor);
+  background-color: var(--primaryTextColor);
   color: var(--btnTextColor);
   font-size: 12px;
   line-height: 1;
+  font-weight: 700;
   border-radius: var(--btnBorderRadius);
   padding: 1em;
   margin-top: 20px;
@@ -206,33 +247,33 @@ a {
 
 /* create new blog form */
 .create {
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
   text-align: center;
 }
 .create label {
   text-align: left;
   display: block;
+  color: var(--bodyTextColor);
 }
 .create h2 {
-  font-size: 20px;
-  color: #f1356d;
   margin-bottom: 30px;
 }
 .create input, .create textarea, .create select {
   width: 100%;
   padding: 6px 10px;
   margin: 10px 0;
-  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  border: none;
+  color: #000;
+  background-color: var(--btnFillColor);
   box-sizing: border-box;
   display: block;
 }
 .create button {
-  background: #f1356d;
-  color: #fff;
+  font-size: 14px;
+  line-height: 1;
   border: 0;
-  padding: 8px;
-  border-radius: 8px;
   cursor: pointer;
 }
 

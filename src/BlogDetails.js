@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CheckIcon from '@mui/icons-material/Check';
 import { useState } from "react";
 import { db } from './firebase'
-import { onValue, ref, remove } from 'firebase/database';
+import { ref, remove } from 'firebase/database';
 import useFirebase from "./useFirebase";
 
 const BlogDetails = () => {
@@ -43,9 +43,9 @@ const BlogDetails = () => {
       {blog && (
         <article>
           <h2>{blog.title}</h2>
-          <p>Written by: <b>{blog.author}</b></p>
+          <p className="author">Written by: <b>{blog.author}</b></p>
           <div>{blog.body}</div>
-          <button onClick={handleClick}>Delete</button>
+          <button onClick={handleClick} className="actionBtn">Delete</button>
         </article>
       )}
       {blogDeleted &&
@@ -53,7 +53,7 @@ const BlogDetails = () => {
           <div>
             <CheckIcon />
             <p>Blog Deleted</p>
-            <button onClick={goToHome}>Go to Home page</button>
+            <button onClick={goToHome} className="actionBtn">Go to Home page</button>
           </div>
         </div>
       }
