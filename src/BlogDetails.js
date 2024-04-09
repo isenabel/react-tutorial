@@ -1,15 +1,29 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "./useFetch";
+import CheckIcon from '@mui/icons-material/Check';
+import { useState } from "react";
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const { data: blog, isPending } = useFetch( 'http://localhost:4000/blogs/' + id);
+  const { data: blog, isPending } = useFetch('http://localhost:4000/blogs/' + id);
   const navigate = useNavigate();
+  const [blogDeleted, setBlogDeleted] = useState(false);
 
-  const handleClick = () => {
-    // remove(ref(db, "blogs/" + id)).then(() => {
-    //   navigate('/');
-    // });
+  const handleClick = async () => {
+    const res = await fetch('http://localhost:4000/blogs/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'text/html',
+        body: id
+      }
+    });
+    if (res.ok) {
+      setBlogDeleted(true);
+    }
+  }
+
+  function goToHome() {
+    navigate('/');
   }
 
   return (
@@ -23,6 +37,15 @@ const BlogDetails = () => {
           <button onClick={handleClick}>Delete</button>
         </article>
       )}
+      {blogDeleted &&
+        <div className="deleteMsg">
+          <div>
+            <CheckIcon />
+            <p>Blog Deleted</p>
+            <button onClick={goToHome}>Go to Home page</button>
+          </div>
+        </div>
+      }
     </div>
   );
 }

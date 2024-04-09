@@ -14,7 +14,7 @@ router.post('/blogs', async (req, res) => {
   const postBlog = await newBlog.save();
 
   if (postBlog) {
-    res.send('Blog added. Thank you');
+    res.send('Blog added. Thank you.');
   } else {
     res.send('Failed to add.');
   }
@@ -30,6 +30,26 @@ router.get('/blogs', async (req, res) => {
   if (blogsData) {
     res.send(JSON.stringify(blogsData));
   }
+});
+
+router.get('/blogs/:id', async (req, res) => {
+  const id = req.params.id;
+
+  const blogs = schemas.Blogs;
+
+  const blogsData = await blogs.findById(id);
+
+  if (blogsData) {
+    res.send(JSON.stringify(blogsData));
+  }
+});
+
+router.delete('/blogs/:id', async (req, res) => {
+  const id = req.params.id;
+
+  const blogs = schemas.Blogs;
+
+  await blogs.findOneAndDelete(id);
 
 });
 
