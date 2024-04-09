@@ -22,6 +22,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ### `Backend database`
 
-Change the directory to "server" folder. (cd server)
-Install de dependencies. (npm install)
-Run MongoDB. (npm start)
+Firebase realtime database

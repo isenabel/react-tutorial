@@ -1,5 +1,7 @@
+import { push, ref } from "firebase/database";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { db } from "./firebase";
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -9,15 +11,14 @@ const Create = () => {
   const navigate = useNavigate();
 
   function addBlog({ title, body, author }) {
-
-    // push(ref(db, "blogs/"), {
-    //   title: title,
-    //   body: body,
-    //   author: author
-    // }).then(() => {
-    //   navigate('/');
-    //   setIsPending(false);
-    // });
+    push(ref(db, "blogs/"), {
+      title: title,
+      body: body,
+      author: author
+    }).then(() => {
+      navigate('/');
+      setIsPending(false);
+    });
   }
 
   const handleSubmit = (e) => {

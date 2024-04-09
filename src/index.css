@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-
 /* ------------------------------------------------------------ */
 
 /* -----> RESET.CSS INCLUDED HERE TO REDUCE SERVER CALLS <----- */
@@ -58,14 +56,17 @@ a {
 
 :root {
   --primaryColor: #f1356d;
-  --fontColor: #333;
+  --fontColor: #001043;
   --btnTextColor: #fff;
   --btnBorderRadius: 8px;
 }
 
-* {
-  font-family: "Quicksand";
-  color: #333;
+#root {
+  width: 100vw;
+  height: 100vw;
+  /* background-color: #0C2D48; */
+  font-family: "Roboto";
+  color: var(--fontColor);
 }
 
 .navbar {
@@ -103,6 +104,7 @@ a {
   margin-left: 16px;
   text-decoration: none;
   padding: 6px;
+  color: #00aed1;
 }
 .navbar a:hover {
   color: #f1356d;
@@ -128,6 +130,7 @@ a {
   margin-bottom: 8px;
 }
 .blog-preview a{
+  color: var(--fontColor);
   text-decoration: none;
 }
 
@@ -170,7 +173,7 @@ a {
   box-sizing: border-box;
   padding: 30px;
   padding-top: 5px;
-  background-color: #d8d8d8;
+  background-color: #FFF;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
