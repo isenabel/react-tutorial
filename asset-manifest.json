@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-tutorial/static/css/main.c2295114.css",
-    "main.js": "/react-tutorial/static/js/main.fd16a149.js",
+    "main.css": "/react-tutorial/static/css/main.4e93aba4.css",
+    "main.js": "/react-tutorial/static/js/main.a623ba0c.js",
     "static/media/roboto-latin-500-normal.woff2": "/react-tutorial/static/media/roboto-latin-500-normal.f25d774ecfe0996f8eb5.woff2",
     "static/media/roboto-latin-700-normal.woff2": "/react-tutorial/static/media/roboto-latin-700-normal.227c93190fe7f82de3f8.woff2",
     "static/media/roboto-latin-400-normal.woff2": "/react-tutorial/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
@@ -50,6 +50,7 @@
     "static/media/roboto-vietnamese-400-normal.woff": "/react-tutorial/static/media/roboto-vietnamese-400-normal.e0e8ba725ebd107367a8.woff",
     "static/media/roboto-vietnamese-500-normal.woff": "/react-tutorial/static/media/roboto-vietnamese-500-normal.657896dad292ee9a0a0a.woff",
     "static/media/roboto-vietnamese-700-normal.woff": "/react-tutorial/static/media/roboto-vietnamese-700-normal.4df79f684fcbca8386bd.woff",
+    "static/media/default_image.webp": "/react-tutorial/static/media/default_image.aadba29c0fa8fe2da964.webp",
     "static/media/logo.svg": "/react-tutorial/static/media/logo.6a5a21fed23907fe56ba20afd5dbee7d.svg",
     "static/media/roboto-greek-ext-500-normal.woff2": "/react-tutorial/static/media/roboto-greek-ext-500-normal.6fb9cffb1d3e72bf9293.woff2",
     "static/media/roboto-greek-ext-400-normal.woff2": "/react-tutorial/static/media/roboto-greek-ext-400-normal.169619821ea93019d1bb.woff2",
@@ -60,11 +61,11 @@
     "static/media/roboto-greek-ext-400-normal.woff": "/react-tutorial/static/media/roboto-greek-ext-400-normal.f708607d2a7290fb8bfa.woff",
     "static/media/roboto-greek-ext-700-normal.woff": "/react-tutorial/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "index.html": "/react-tutorial/index.html",
-    "main.c2295114.css.map": "/react-tutorial/static/css/main.c2295114.css.map",
-    "main.fd16a149.js.map": "/react-tutorial/static/js/main.fd16a149.js.map"
+    "main.4e93aba4.css.map": "/react-tutorial/static/css/main.4e93aba4.css.map",
+    "main.a623ba0c.js.map": "/react-tutorial/static/js/main.a623ba0c.js.map"
   },
   "entrypoints": [
-    "static/css/main.c2295114.css",
-    "static/js/main.fd16a149.js"
+    "static/css/main.4e93aba4.css",
+    "static/js/main.a623ba0c.js"
   ]
 }
