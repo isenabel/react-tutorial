@@ -5,8 +5,23 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Create from './Create';
 import BlogDetails from './BlogDetails';
 import NotFound from './NotFound';
+import { useEffect } from 'react';
+import AllBlogs from './AllBlogs';
 
 export default function App() {
+
+  useEffect(() => {
+    const onPageLoad = () => {
+      document.body.classList.add('show');
+    };
+
+    if (document.readyState === 'complete') {
+      onPageLoad();
+    } else {
+      window.addEventListener('load', onPageLoad, false);
+      return () => window.removeEventListener('load', onPageLoad);
+    }
+  }, []);
 
   return (
     <Router>
@@ -15,6 +30,8 @@ export default function App() {
         <div className="content">
           <Routes>
             <Route path='/' element={<Home />}></Route>
+            <Route path='/react-tutorial' element={<Home />}></Route>
+            <Route path='/all' element={<AllBlogs />}></Route>
             <Route path='/create' element={<Create />}></Route>
             <Route path='/blogs/:id' element={<BlogDetails />}></Route>
             <Route path='*' element={<NotFound />}></Route>

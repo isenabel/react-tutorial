@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div>
-        <p>Made by: <b>Isen Liu.</b> Using ReactJS</p>
+        <p>Made with ReactJS</p>
       </div>
     </footer>
   );

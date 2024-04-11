@@ -1,17 +1,27 @@
+import { Link, Navigate } from "react-router-dom";
 import BlogList from "./BlogList";
 // import useFetch from "./useFetch";
 import useFirebase from "./useFirebase";
 
 const Home = () => {
 
-  const { data: blogs, isPending, error } = useFirebase("GET");
+  const { data: blogs, isPending, error } = useFirebase("GET", null, false);
   // const { data: blogs, isPending, error } = useFetch('http://localhost:4000/blogs');
 
   return (
     <div className="home">
+      <div className="homeMsg">
+        <h1>Welcome</h1>
+        <p>This is a test website to practice ReactJS. Please DO NOT enter any confidential data on this website.</p>
+      </div>
       {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
-      {blogs && <BlogList blogs={blogs} title="All Blogs!" />}
+      {blogs && <BlogList blogs={blogs} title="Latest Blogs" />}
+      {blogs &&
+        <Link to={'/all'}>
+          <button className="viewAllBtn">View All</button>
+        </Link>
+      }
     </div>
   );
 }
