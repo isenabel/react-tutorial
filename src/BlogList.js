@@ -1,10 +1,22 @@
 import { Link } from "react-router-dom";
 import default_image from "./assets/default_image.webp";
 
-const BlogList = ({ blogs, title }) => {
+const BlogList = ({ blogs, title, reversed }) => {
 
-  const data = Object.entries(blogs);
-  const dataSorted = data.reverse();
+  let data, newData;
+
+  
+  if (Object.prototype.toString.call(blogs).slice(8).slice(0, -1).toLowerCase() === 'object') {
+    data = Object.entries(blogs);
+  } else {
+    data = blogs;
+  }
+  
+  if (reversed) {
+    newData = data.reverse();
+  } else {
+    newData = data;
+  }
 
   function convertDate(date) {
     const dateOptions = {
@@ -30,7 +42,7 @@ const BlogList = ({ blogs, title }) => {
     <div className="blog-list">
       <h1>{title}</h1>
       <div className="blogContainers">
-        {dataSorted.map((blog) => (
+        {newData.map((blog) => (
           <article className="blog-preview" key={blog[0]}>
             <Link to={`/blogs/${blog[0]}`}>
               <img src={default_image} alt="Blog"></img>

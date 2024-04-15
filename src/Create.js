@@ -17,8 +17,8 @@ const Create = () => {
       author: author,
       date: serverTimestamp()
     }).then(() => {
-      navigate('/');
       setIsPending(false);
+      navigate('/');
     });
   }
 
@@ -40,6 +40,7 @@ const Create = () => {
             type="text"
             required
             className="titleInput"
+            maxLength={50}
             value={title}
             onChange={e => setTitle(e.target.value)}
           />

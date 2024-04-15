@@ -156,6 +156,7 @@ a {
   --bodyTextColor: #f3f3f3;
   --btnTextColor: #001526;
   --btnFillColor: #abbdff;
+  --btnHoverFill: #c1cefd;
   --btnBorderRadius: 8px;
   --btnPadding: 0.7em 1em;
   --mainBackgroundColor: #001526;
@@ -305,9 +306,6 @@ body {
   margin-top: 10px;
 }
 
-.viewAllBtn {
-  margin-top: 20px;
-}
 
 /* blog previews / list */
 .blog-list {
@@ -315,6 +313,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .blog-list h1 {
@@ -606,12 +605,19 @@ body {
   color: var(--authorTextColor);
 }
 
+@media screen and (min-width: 700px) {
+  .viewAllBtn:hover {
+    background-color: var(--btnHoverFill);
+  }
+}
+
 @media screen and (max-width: 700px) {
   .navbar a:hover {
     color: var(--titlePrimaryColor);
   }
 
-  a:hover, button:hover {
+  a:hover,
+  button:hover {
     opacity: 1 !important;
   }
 
@@ -656,7 +662,8 @@ body {
     margin-bottom: 5px;
   }
 
-  .author, .blogDate {
+  .author,
+  .blogDate {
     font-size: 11px;
   }
 

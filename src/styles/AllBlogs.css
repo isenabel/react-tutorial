@@ -1,0 +1,70 @@
+.allBlogsCont {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pagination {
+  display: flex;
+  margin-top: auto;
+}
+
+.prev, .next {
+  width: 24px;
+  padding: 4px 0;
+  background-color: var(--btnFillColor);
+  color: var(--btnTextColor);
+}
+
+.prev {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.next {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.pageNumber-cont {
+  display: flex;
+  align-items: center ;
+  margin: 0 15px;
+  height: 100%;
+}
+
+.pagination-input, .pageNumber-cont > p {
+  font-size: 20px;
+  color: var(--bodyTextColor);
+  font-family: 'Roboto';
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.pagination-input {
+  width: 30px;
+  border: none;
+  outline: 0;
+  padding: 0;
+  text-align: center;
+  background: none;
+  border-bottom: 2px solid var(--btnFillColor);
+}
+
+.pageNumber-cont > p {
+  margin-left: 8px;
+}
+
+
+/*----- Remove inner input arrows -----*/
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number]{
+  -moz-appearance: textfield;
+}

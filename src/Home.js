@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import BlogList from "./BlogList";
 // import useFetch from "./useFetch";
 import useFirebase from "./useFirebase";
@@ -16,7 +16,7 @@ const Home = () => {
       </div>
       {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
-      {blogs && <BlogList blogs={blogs} title="Latest Blogs" />}
+      {blogs && <BlogList blogs={blogs} title="Latest Blogs" reversed={true} />}
       {blogs &&
         <Link to={'/all'}>
           <button className="viewAllBtn">View All</button>
