@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useFirebase from "./useFirebase";
+import useFirebase from "./hooks/useFirebase";
 import BlogList from "./BlogList";
 import Pagination from "./Pagination";
 import './styles/AllBlogs.css';

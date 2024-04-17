@@ -1,16 +1,18 @@
 import { push, ref, serverTimestamp } from "firebase/database";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "./firebase";
+import { db } from "./hooks/firebase";
+import { useSelector } from "react-redux";
 
 const Create = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [author, setAuthor] = useState('Mario');
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
 
-  function addBlog({ title, body, author }) {
+  const author = useSelector((state) => state.currentUser.currentUser);
+
+  function addBlog({ title, body }) {
     push(ref(db, "blogs/"), {
       title: title,
       body: body,
@@ -52,16 +54,6 @@ const Create = () => {
             value={body}
             onChange={e => setBody(e.target.value)}
           ></textarea>
-        </label>
-        <label>Blog author:
-          <select
-            className="selectInput"
-            value={author}
-            onChange={e => setAuthor(e.target.value)}
-          >
-            <option value="Mario">Mario</option>
-            <option value="Yoshi">Yoshi</option>
-          </select>
         </label>
         {!isPending && <button className="actionBtn" type="submit">Add Blog</button>}
         {isPending && <button disabled>Adding Blog...</button>}

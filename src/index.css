@@ -162,6 +162,8 @@ a {
   --mainBackgroundColor: #001526;
   --maxWidthPage: 1920px;
   --blogMaxWidth: 250px;
+  --hyperlinkColor: #4493f8;
+  --incorrectForm: #ff0000;
 }
 
 #root {
@@ -185,12 +187,12 @@ body {
 
 .App h1 {
   color: var(--titlePrimaryColor);
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .App h2 {
   color: var(--titleSecundaryColor);
-  font-size: 26px;
+  font-size: 20px;
 }
 
 .App button {
@@ -269,6 +271,20 @@ body {
 
 .navbar a:hover {
   color: var(--titleSecundaryColor);
+}
+
+.links .login-btn {
+  padding: 0.5em 0.9em;
+  background-color: var(--btnFillColor);
+  color: var(--btnTextColor);
+  border-radius: var(--btnBorderRadius);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.links .login-btn:hover {
+  color: var(--btnTextColor);
+  background-color: var(--btnHoverFill);
 }
 
 .content {

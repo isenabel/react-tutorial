@@ -2,9 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 // import useFetch from "./useFetch";
 import CheckIcon from '@mui/icons-material/Check';
 import { useState } from "react";
-import { db } from './firebase'
+import { db } from './hooks/firebase'
 import { ref, remove } from 'firebase/database';
-import useFirebase from "./useFirebase";
+import useFirebase from "./hooks/useFirebase";
 
 const BlogDetails = () => {
   const { id } = useParams();

@@ -1,0 +1,93 @@
+.login-cont {
+  width: 100%;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 15px 20px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.5 );
+  box-shadow: 0px 0px 10px #fff;
+  border-radius: 10px;
+  background-color: #00223d;
+}
+
+.badUser, .badPass {
+  position: absolute;
+  top: -4px;
+  transform: translateY(-100%);
+  color: var(--incorrectForm);
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+
+.form-cont {
+  overflow: hidden;
+}
+
+.login-title {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.username-box, .password-box {
+  width: 100%;
+  height: 45px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.3 );
+  border-radius: 50px;
+  padding: 10px;
+  background-color: #fff;
+  color: var(--mainBackgroundColor);
+  margin-bottom: 25px;
+}
+
+.password-box {
+  margin-bottom: 10px;
+}
+
+.username-box input, .password-box input {
+  width: 100%;
+  background: none;
+  outline: 0;
+  border: 0;
+  margin-right: 10px;
+  padding: 0;
+}
+
+.username-box svg {
+  color: var(--mainBackgroundColor);
+}
+
+.forgotPass {
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  color: var(--hyperlinkColor);
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.form-cont > button {
+  display: block;
+  width: fit-content;
+  margin: 10px auto;
+}
+
+.register {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.register a {
+  color: var(--hyperlinkColor);
+}

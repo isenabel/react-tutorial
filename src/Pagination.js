@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import usePagination from "./usePagination.js";
+import usePagination from "./hooks/usePagination.js";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
@@ -9,6 +9,7 @@ const Pagination = ({ data, pageLimit, setPageItems }) => {
 
   useEffect(() => {
     setPageItems(pageData());
+    // eslint-disable-next-line
   }, [pageNumber]);
 
   return (

@@ -48,7 +48,7 @@ const useFirebase = (method, blogID, allBlogs) => {
         break;
     }
 
-  }, [method, blogID])
+  }, [method, blogID, allBlogs]);
 
   return { data, isPending, error };
 }

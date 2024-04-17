@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import BlogList from "./BlogList";
 // import useFetch from "./useFetch";
-import useFirebase from "./useFirebase";
+import useFirebase from "./hooks/useFirebase";
 
 const Home = () => {
 
