@@ -20,7 +20,7 @@ const Create = () => {
       date: serverTimestamp()
     }).then(() => {
       setIsPending(false);
-      navigate('/');
+      navigate('/react-tutorial');
     });
   }
 

@@ -1,33 +1,48 @@
 import { useNavigate, useParams } from "react-router-dom";
-// import useFetch from "./useFetch";
 import CheckIcon from '@mui/icons-material/Check';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from './hooks/firebase'
 import { ref, remove } from 'firebase/database';
 import useFirebase from "./hooks/useFirebase";
+import { useSelector } from "react-redux";
 
 const BlogDetails = () => {
   const { id } = useParams();
-  // const { data: blog, isPending } = useFetch('http://localhost:4000/blogs/' + id);
   const { data: blog, isPending, error } = useFirebase('GET', id, null);
   const navigate = useNavigate();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [blogDeleted, setBlogDeleted] = useState(false);
+  const [canDelete, setCanDelete] = useState(false);
+  const [currentRole, setCurrentRole] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  const [dateConverted, setDateConverted] = useState();
 
+  const user = useSelector((state) => state.currentUser.currentUser);
+  const role = useSelector((state) => state.currentUser.role);
   const deleteContainer = document.querySelector('.deleteMsgBack');
 
-  let dateConverted;
 
-  if (blog) {
-    const dateOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
+  useEffect(() => {
+    setCurrentRole(role);
+    setCurrentUser(user);
+    if (currentRole === 'admin' || currentRole === 'moderator') {
+      setCanDelete(true);
+    }
+    if (blog) {
+      const dateOptions = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      };
   
-    const newDate = new Date(blog.date);
-    dateConverted = new Intl.DateTimeFormat('en-US', dateOptions).format(newDate);
-  }
+      const newDate = new Date(blog.date);
+      setDateConverted(new Intl.DateTimeFormat('en-US', dateOptions).format(newDate));
+  
+      if (currentUser === blog.author) {
+        setCanDelete(true);
+      };
+    }
+  }, [role, currentRole, user, currentUser, blog]);
 
   const handleClick = () => {
     setConfirmDelete(true);
@@ -48,23 +63,10 @@ const BlogDetails = () => {
     deleteContainer.classList.add('hide');
   }
 
-  // const handleClick = async () => {
-  //   const res = await fetch('http://localhost:4000/blogs/' + id, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Content-Type': 'text/html',
-  //       body: id
-  //     }
-  //   });
-  //   if (res.ok) {
-  //     setBlogDeleted(true);
-  //   }
-  // }
-
   function goToHome() {
     setTimeout(() => {
-      navigate('/');
-    }, 3000);
+      navigate('/react-tutorial');
+    }, 1000);
   }
 
   return (
@@ -77,7 +79,7 @@ const BlogDetails = () => {
           <p className="author">Written by: <b>{blog.author}</b></p>
           <p className="body">{blog.body}</p>
           <p className="blogDate"><b>Created at: </b>{dateConverted}</p>
-          <button onClick={handleClick} className="actionBtn">Delete</button>
+          {canDelete && <button onClick={handleClick} className="actionBtn">Delete</button>}
         </article>
       )}
       <div className="deleteMsgBack hide">

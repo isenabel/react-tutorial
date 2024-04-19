@@ -23,7 +23,7 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    get(child(dbRef, `user/${userName}`)).then((snapshot) => {
+    get(child(dbRef, `users/${userName}`)).then((snapshot) => {
       if (snapshot.exists()) {
         setBadUser(false);
         if (password === snapshot.val().password) {
@@ -31,7 +31,7 @@ const SignIn = () => {
           dispatch(addUser(userName));
           dispatch(addRole(snapshot.val().role));
           console.log(`Welcome! ${userName}`);
-          navigate('/');
+          navigate('/react-tutorial');
         } else {
           setBadPass(true);
         }
@@ -45,38 +45,40 @@ const SignIn = () => {
   }
 
   return (
-    <div className="login-cont">
-      <form onSubmit={handleSubmit} className='form-cont'>
-        <h1 className='login-title'>Sign in</h1>
-        <div className="username-box">
-        {badUser && <p className='badUser'>Username doesn't exist or incorrect</p>}
-          <input
-            type="text"
-            placeholder='Username'
-            aria-label='Username'
-            maxLength={30}
-            onChange={e => setUserName(e.target.value)}
-            required />
-          <PersonIcon />
-        </div>
-        <div className="password-box">
-        {badPass && <p className='badPass'>Incorrect password</p>}
-          <input type="password"
-            placeholder='Password'
-            aria-label='Password'
-            minLength={8}
-            onChange={e => setPassword(e.target.value)}
-            required />
-          <LockIcon />
-        </div>
+    <div className='login-back'>
+      <div className="login-cont">
+        <form onSubmit={handleSubmit} className='form-cont'>
+          <h1 className='login-title'>Sign in</h1>
+          <div className="username-box">
+            {badUser && <p className='badUser'>Username doesn't exist or incorrect</p>}
+            <input
+              type="text"
+              placeholder='Username'
+              aria-label='Username'
+              maxLength={30}
+              onChange={e => setUserName(e.target.value)}
+              required />
+            <PersonIcon />
+          </div>
+          <div className="password-box">
+            {badPass && <p className='badPass'>Incorrect password</p>}
+            <input type="password"
+              placeholder='Password'
+              aria-label='Password'
+              minLength={8}
+              onChange={e => setPassword(e.target.value)}
+              required />
+            <LockIcon />
+          </div>
 
-        <Link to={`/forgotPass`} className="forgotPass">Forgot password?</Link>
-        <button type="submit" >Sign in</button>
-      </form>
-      <div className="register">
-        <p>Don't have an account? <Link to={'/signUp'}>Register</Link></p>
-      </div>
-    </div >
+          <Link to={'/forgotPass'} className="forgotPass">Forgot password?</Link>
+          <button type="submit" >Sign in</button>
+        </form>
+        <div className="register">
+          <p>Don't have an account? <Link to={'/signUp'}>Register</Link></p>
+        </div>
+      </div >
+    </div>
   );
 }
 

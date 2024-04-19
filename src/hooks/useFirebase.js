@@ -12,6 +12,7 @@ const useFirebase = (method, blogID, allBlogs) => {
     switch (method) {
       case 'GET':
         try {
+          // If passing just the ID and the rest is null or false (BlogDetails component)
           if (blogID && !allBlogs) {
             const blogRef = ref(db, 'blogs/' + blogID);
             onValue(blogRef, (snapShot) => {
@@ -19,7 +20,9 @@ const useFirebase = (method, blogID, allBlogs) => {
               setData(data);
               setIsPending(false);
             });
+            // If not BlogDetails component who did the call
           } else {
+            // If AllBlogs component did the call
             if (allBlogs) {
               const blogRef = query(ref(db, 'blogs'), orderByChild('date'));
               onValue(blogRef, (snapShot) => {
@@ -27,6 +30,7 @@ const useFirebase = (method, blogID, allBlogs) => {
                 setData(data);
                 setIsPending(false);
               });
+              // Latest 10 Blogs (Home page)
             } else {
               const blogRef = query(ref(db, 'blogs'), limitToLast(10));
               onValue(blogRef, (snapShot) => {

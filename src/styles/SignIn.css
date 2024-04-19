@@ -1,12 +1,16 @@
+.login-back {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-cont {
   width: 100%;
   min-width: 300px;
   max-width: 400px;
   padding: 15px 20px;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   box-sizing: border-box;
   border: 1px solid rgba(255, 255, 255, 0.5 );
   box-shadow: 0px 0px 10px #fff;
@@ -23,10 +27,6 @@
   line-height: 1;
   white-space: nowrap;
   margin-bottom: 4px;
-}
-
-.form-cont {
-  overflow: hidden;
 }
 
 .login-title {
@@ -73,7 +73,10 @@
   color: var(--hyperlinkColor);
   font-size: 12px;
   line-height: 1;
+  text-decoration: none;
   white-space: nowrap;
+  pointer-events: all;
+  cursor: pointer;
 }
 
 .form-cont > button {
@@ -90,4 +93,10 @@
 
 .register a {
   color: var(--hyperlinkColor);
+}
+
+@media screen and (max-width: 700px) {
+  .login-title {
+    font-size: 22px !important;
+  }
 }

@@ -1,0 +1,130 @@
+.signUp-back {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signUp-cont {
+  width: 100%;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.5 );
+  box-shadow: 0px 0px 10px #fff;
+  border-radius: 10px;
+  background-color: #00223d;
+}
+
+.signUp-title {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.signUp-cont .info {
+  color: var(--authorTextColor);
+  font-size: 12px;
+  line-height: 1;
+  padding-left: 10px;
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
+
+.signUp-cont .username-cont {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-bottom: 20px;
+}
+
+.signUp-cont .username-box, .signUp-cont .password-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  border-radius: 50px;
+  padding: 10px;
+  background-color: #fff;
+  color: var(--mainBackgroundColor);
+  margin: 0;
+}
+
+.signUp-cont .username-box {
+  max-width: 200px;
+}
+
+.signUp-cont .yesIcon, .signUp-cont .noIcon {
+  position: absolute;
+  right: 0;
+  transform: translateX(100%);
+  font-size: 24px;
+}
+
+.signUp-cont .yesIcon {
+  color: green;
+}
+
+.signUp-cont .noIcon {
+  color: #ff6c6c;
+}
+
+.signUp-cont .checkBtn {
+  font-size: 12px;
+  line-height: 1;
+  margin-left: 30px;
+}
+
+.signUp-cont .username-box input, .signUp-cont .password-box input {
+  width: 100%;
+  background: none;
+  outline: 0;
+  border: 0;
+  margin-right: 10px;
+  padding: 0;
+}
+
+.signUp-cont .userIcon, .signUp-cont .passIcon {
+  color: var(--mainBackgroundColor);
+}
+
+.signUp-cont .recoveryQ-cont {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  row-gap: 10px;
+}
+
+.signUp-cont .recoverySelect, .signUp-cont .recoveryAns {
+  padding: 7px 4px;
+  font-size: 12px;
+}
+
+.signUp-cont .recoverySelect {
+  width: 50%;
+}
+
+.signUp-cont .recoveryAns {
+  width: 40%;
+  margin-left: 10px;
+}
+
+.signUp-cont .submit {
+  display: block;
+  width: fit-content;
+  margin: 15px auto 0 auto;
+}
+
+@media screen and (max-width: 700px) {
+  .signUp-title {
+    font-size: 22px !important;
+  }
+}

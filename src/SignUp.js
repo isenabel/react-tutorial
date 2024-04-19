@@ -1,7 +1,122 @@
+import './styles/SignUp.css';
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import { Link, useNavigate } from 'react-router-dom';
+import { child, get, ref, set } from 'firebase/database';
+import { db } from './hooks/firebase'
+import { useState } from 'react';
+import { addUser, addRole } from './hooks/userSlice';
+import { useDispatch } from 'react-redux';
+
 const SignUp = () => {
-  return ( 
-    <></>
-   );
+
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [recoveryQ, setRecoveryQ] = useState('What is your favorite food?');
+  const [recoveryAns, setRecoveryAns] = useState('');
+
+  const [avaliableUser, setAvaliableUser] = useState(false);
+  const [notAvaliableUser, setNotAvaliableUser] = useState(false);
+
+  const dbRef = ref(db);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  function checkUsername(e) {
+    if (e.target.checkValidity()) {
+      e.target.parentNode.classList.remove('input-notvalid');
+      e.target.parentNode.classList.add('input-valid');
+    } else {
+      e.target.parentNode.classList.remove('input-valid');
+      e.target.parentNode.classList.add('input-notvalid');
+    }
+    setUserName(e.target.value);
+  }
+
+  function checkAvaliable() {
+    get(child(dbRef, `users/${userName}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        setAvaliableUser(false);
+        setNotAvaliableUser(true);
+      } else {
+        setNotAvaliableUser(false);
+        setAvaliableUser(true);
+        set(ref(db, 'users/' + userName), {
+          password: password,
+          role: 'member',
+          recoveryQuestion: recoveryQ,
+          recoveryAnswer: recoveryAns
+        });
+        dispatch(addUser(userName));
+        dispatch(addRole('member'));
+        navigate('/react-tutorial');
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    checkAvaliable();
+  }
+
+  return (
+    <div className='signUp-back'>
+      <div className="signUp-cont">
+        <form onSubmit={handleSubmit} className='form-cont'>
+          <h1 className='signUp-title'>Sign Up</h1>
+          <p className='username-info info'>Valid characters: Letters, numbers, (.) and (_)</p>
+          <div className='username-cont'>
+            <div className="username-box">
+              <input
+                type="text"
+                placeholder='Username'
+                aria-label='Username'
+                maxLength={12}
+                pattern='^[a-zA-Z]+[a-zA-Z0-9._]+$'
+                onChange={e => checkUsername(e)}
+                required />
+              <PersonIcon className='userIcon' />
+              {avaliableUser && <CheckIcon className='yesIcon' />}
+              {notAvaliableUser && <CloseIcon className='noIcon' />}
+            </div>
+            <button type="button" className='checkBtn' onClick={checkAvaliable}>Check availability</button>
+          </div>
+          <p className='password-info info'>Min lenght: 8</p>
+          <div className="password-box">
+            <input type="password"
+              placeholder='Password'
+              aria-label='Password'
+              minLength={8}
+              onChange={e => setPassword(e.target.value)}
+              required />
+            <LockIcon className='passIcon' />
+          </div>
+          <div className="recoveryQ-cont">
+            <select className='recoverySelect'
+              value={recoveryQ}
+              onChange={(e) => setRecoveryQ(e.target.value)}
+              required
+            >
+              <option value="What is your favorite food?">What is your favorite food?</option>
+              <option value="What is your favorite color?">What is your favorite color?</option>
+            </select>
+            <input type="text" 
+            className='recoveryAns'
+            placeholder='Answer'
+            aria-label='Answer'
+            onChange={(e) => setRecoveryAns(e.target.value)}
+            required
+             />
+          </div>
+          <button type="submit" className='submit' >Sign Up</button>
+        </form>
+      </div >
+    </div>
+  );
 }
- 
+
 export default SignUp;
