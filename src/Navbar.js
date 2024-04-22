@@ -13,7 +13,6 @@ export default function NavBar() {
   const [currentUser, setCurrentUser] = useState('');
   const user = useSelector((state) => state.currentUser.currentUser);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,7 +56,7 @@ export default function NavBar() {
             <div className="userMenu hide">
               <ul>
                 <li className='userInfo'>{currentUser}</li>
-                <li className='userOptions' onClick={e => userOptionsClick(e)}><Link to={'/forgotPass'}>Change password</Link></li>
+                <li className='userOptions' onClick={e => userOptionsClick(e)}><Link to={'/myProfile'}>My profile</Link></li>
                 <li className='userOptions' onClick={e => userOptionsClick(e)}><Link to={`/all/${currentUser}`}>My blogs</Link></li>
                 <li className='userOptions' onClick={logOut}><span>Sign out</span></li>
               </ul>

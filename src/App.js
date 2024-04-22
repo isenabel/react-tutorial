@@ -11,15 +11,14 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import { useSelector } from 'react-redux';
 import ForgotPass from './ForgotPass';
-
-// import { Provider } from 'react-redux';
+import MyProfile from './MyProfile';
 
 export default function App() {
 
   const [currentUser, setCurrentUser] = useState('');
-  const user = useSelector((state) => state.currentUser.currentUser);
-
   const [firstOpen, setFirstOpen] = useState(true);
+  
+  const user = useSelector((state) => state.currentUser.currentUser);
 
   useEffect(() => {
     const onPageLoad = () => {
@@ -57,6 +56,7 @@ export default function App() {
             {currentUser && <Route path='/all/:author' element={<AllBlogs />}></Route>}
             <Route path='/blogs/:id' element={<BlogDetails />}></Route>
             {currentUser && <Route path='/create' element={<Create />}></Route>}
+            {currentUser && <Route path='/myProfile' element={<MyProfile />}></Route>}
             {currentUser && <Route path='/forgotPass' element={<ForgotPass />}></Route>}
             <Route path='/signIn' element={<SignIn />}></Route>
             <Route path='/signUp' element={<SignUp />}></Route>

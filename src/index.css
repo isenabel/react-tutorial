@@ -214,6 +214,10 @@ body {
   opacity: 0.9;
 }
 
+.flexrow {
+  display: flex;
+}
+
 .input-valid {
   box-shadow: inset 0 0 0 3px lightgreen !important;
 }
@@ -300,6 +304,7 @@ body {
 }
 
 .userMenu {
+  min-width: 150px;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -546,11 +551,15 @@ body {
   background-color: green;
   color: var(--bodyTextColor);
   margin-right: 10px;
+  border: 0;
+  outline: 0;
 }
 
 .confirmDelete .deleteNo {
   background-color: #b00000;
   color: var(--bodyTextColor);
+  border: 0;
+  outline: 0;
 }
 
 .deleteMsgBack {
@@ -694,6 +703,78 @@ body {
 
 .not-found>a:hover {
   opacity: 0.9;
+}
+
+/* ---- My profile ---- */
+
+.myProfile-cont {
+  max-width: 500px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.myProfile-title {
+  margin-bottom: 30px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.myProfile .username-cont, .myProfile .fullName-cont, .myProfile .password-cont {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.myProfile .flexrow, .myProfile .username-cont {
+  flex-wrap: nowrap;
+}
+
+.myProfile .userKey {
+  width: 130px;
+  color: var(--titleSecundaryColor);
+  white-space: nowrap;
+}
+
+.myProfile .fullname-edit, .myProfile .oldPassword, .myProfile .newPassword {
+  border-radius: 7px;
+  border: 0;
+  outline: 0;
+  padding: 7px 10px;
+}
+
+.myProfile .oldPassword {
+  margin-right: 20px;
+}
+
+.myProfile .save {
+  background-color: var(--titleSecundaryColor);
+  margin-right: 20px;
+}
+
+.myProfile .save:hover, .myProfile .cancel:hover {
+  filter: brightness(1.1);
+}
+
+.myProfile .editName {
+  margin-right: 20px;
+}
+
+.myProfile .deleteUser {
+  display: block;
+  width: fit-content;
+  background: #b00000;
+  color: #FFF;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+  border: 0;
+  padding: var(--btnPadding);
+  border-radius: var(--btnBorderRadius);
+  cursor: pointer;
+  margin-top: auto;
 }
 
 /* Footer */

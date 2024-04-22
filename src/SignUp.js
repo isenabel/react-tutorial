@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 
 const SignUp = () => {
 
+  const [fullName, setFullName] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [recoveryQ, setRecoveryQ] = useState('What is your favorite food?');
@@ -23,6 +24,8 @@ const SignUp = () => {
   const dbRef = ref(db);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  let create = false;
 
   function checkUsername(e) {
     if (e.target.checkValidity()) {
@@ -43,15 +46,18 @@ const SignUp = () => {
       } else {
         setNotAvaliableUser(false);
         setAvaliableUser(true);
-        set(ref(db, 'users/' + userName), {
-          password: password,
-          role: 'member',
-          recoveryQuestion: recoveryQ,
-          recoveryAnswer: recoveryAns
-        });
-        dispatch(addUser(userName));
-        dispatch(addRole('member'));
-        navigate('/react-tutorial');
+        if (create) {
+          set(ref(db, 'users/' + userName), {
+            fullName: fullName,
+            password: password,
+            role: 'member',
+            recoveryQuestion: recoveryQ,
+            recoveryAnswer: recoveryAns
+          });
+          dispatch(addUser(userName));
+          dispatch(addRole('member'));
+          navigate('/react-tutorial');
+        }
       }
     }).catch((error) => {
       console.error(error);
@@ -60,14 +66,28 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    create = true;
     checkAvaliable();
   }
 
   return (
     <div className='signUp-back'>
       <div className="signUp-cont">
+        <h1 className='signUp-title'>Sign Up</h1>
         <form onSubmit={handleSubmit} className='form-cont'>
-          <h1 className='signUp-title'>Sign Up</h1>
+          <div className="fullname">
+            <label htmlFor="fullname-input" className='fullname-label'>Full name:</label>
+            <input
+              type="text"
+              placeholder="Enter full name"
+              id='fullname-input'
+              className="fullname-input"
+              pattern="^[a-zA-Z ]+$"
+              minLength={2}
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+          </div>
           <p className='username-info info'>Valid characters: Letters, numbers, (.) and (_)</p>
           <div className='username-cont'>
             <div className="username-box">
@@ -104,13 +124,13 @@ const SignUp = () => {
               <option value="What is your favorite food?">What is your favorite food?</option>
               <option value="What is your favorite color?">What is your favorite color?</option>
             </select>
-            <input type="text" 
-            className='recoveryAns'
-            placeholder='Answer'
-            aria-label='Answer'
-            onChange={(e) => setRecoveryAns(e.target.value)}
-            required
-             />
+            <input type="text"
+              className='recoveryAns'
+              placeholder='Answer'
+              aria-label='Answer'
+              onChange={(e) => setRecoveryAns(e.target.value)}
+              required
+            />
           </div>
           <button type="submit" className='submit' >Sign Up</button>
         </form>
