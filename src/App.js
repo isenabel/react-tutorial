@@ -10,7 +10,6 @@ import AllBlogs from './AllBlogs';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import { useSelector } from 'react-redux';
-import ForgotPass from './ForgotPass';
 import MyProfile from './MyProfile';
 
 export default function App() {
@@ -57,7 +56,6 @@ export default function App() {
             <Route path='/blogs/:id' element={<BlogDetails />}></Route>
             {currentUser && <Route path='/create' element={<Create />}></Route>}
             {currentUser && <Route path='/myProfile' element={<MyProfile />}></Route>}
-            {currentUser && <Route path='/forgotPass' element={<ForgotPass />}></Route>}
             <Route path='/signIn' element={<SignIn />}></Route>
             <Route path='/signUp' element={<SignUp />}></Route>
             <Route path='*' element={<NotFound />}></Route>
