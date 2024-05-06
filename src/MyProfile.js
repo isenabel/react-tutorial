@@ -151,24 +151,26 @@ const MyProfile = () => {
             {willEditPass &&
               <div className="password-edit flexrow">
                 <p className="userKey"><b>Password:</b></p>
-                <input
-                  type="password"
-                  placeholder="Old password"
-                  aria-label="Old password"
-                  className="oldPassword"
-                  minLength={8}
-                  value={oldPassword}
-                  onChange={e => setOldPassword(e.target.value)}
-                />
-                <input
-                  type="password"
-                  placeholder="New password"
-                  aria-label="New password"
-                  className="newPassword"
-                  minLength={8}
-                  value={newPassword}
-                  onChange={e => setNewPassword(e.target.value)}
-                />
+                <div className="inputPassContainer">
+                  <input
+                    type="password"
+                    placeholder="Old password"
+                    aria-label="Old password"
+                    className="oldPassword"
+                    minLength={8}
+                    value={oldPassword}
+                    onChange={e => setOldPassword(e.target.value)}
+                  />
+                  <input
+                    type="password"
+                    placeholder="New password"
+                    aria-label="New password"
+                    className="newPassword"
+                    minLength={8}
+                    value={newPassword}
+                    onChange={e => setNewPassword(e.target.value)}
+                  />
+                </div>
               </div>
             }
           </div>

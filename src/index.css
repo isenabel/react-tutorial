@@ -706,6 +706,10 @@ body {
 }
 
 /* ---- My profile ---- */
+.myProfile, .myProfile form {
+  width: 100%;
+}
+
 
 .myProfile-cont {
   max-width: 500px;
@@ -736,6 +740,12 @@ body {
   width: 130px;
   color: var(--titleSecundaryColor);
   white-space: nowrap;
+}
+
+.myProfile .inputPassContainer {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
 }
 
 .myProfile .fullname-edit, .myProfile .oldPassword, .myProfile .newPassword {
