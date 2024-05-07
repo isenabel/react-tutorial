@@ -3,9 +3,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { Link, useNavigate } from 'react-router-dom';
-import { child, get, ref, set } from 'firebase/database';
-import { db } from './hooks/firebase'
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { addUser, addRole } from './hooks/userSlice';
 import { useDispatch } from 'react-redux';
@@ -21,9 +19,10 @@ const SignUp = () => {
   const [avaliableUser, setAvaliableUser] = useState(false);
   const [notAvaliableUser, setNotAvaliableUser] = useState(false);
 
-  const dbRef = ref(db);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const abortCont = new AbortController();
 
   let create = false;
 
@@ -39,29 +38,47 @@ const SignUp = () => {
   }
 
   function checkAvaliable() {
-    get(child(dbRef, `users/${userName}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        setAvaliableUser(false);
-        setNotAvaliableUser(true);
-      } else {
-        setNotAvaliableUser(false);
-        setAvaliableUser(true);
-        if (create) {
-          set(ref(db, 'users/' + userName), {
-            fullName: fullName,
-            password: password,
-            role: 'member',
-            recoveryQuestion: recoveryQ,
-            recoveryAnswer: recoveryAns
-          });
-          dispatch(addUser(userName));
-          dispatch(addRole('member'));
-          navigate('/react-tutorial');
+    fetch('http://localhost:4000/users/' + userName, { signal: abortCont.signal })
+      .then(res => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
         }
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+        return res.json();
+      })
+      .then(data => {
+        if (data) {
+          setAvaliableUser(false);
+          setNotAvaliableUser(true);
+        } else {
+          setNotAvaliableUser(false);
+          setAvaliableUser(true);
+          if (create) {
+            fetch('http://localhost:4000/users/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                username: userName,
+                fullName: fullName,
+                password: password,
+                role: 'member',
+                recoveryQuestion: recoveryQ,
+                recoveryAnswer: recoveryAns
+              })
+            })
+              .then(() => {
+                dispatch(addUser(userName));
+                dispatch(addRole('member'));
+                navigate('/react-tutorial');
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   const handleSubmit = (e) => {

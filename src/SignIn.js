@@ -3,8 +3,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link, useNavigate } from 'react-router-dom';
-import { child, get, ref, update } from 'firebase/database';
-import { db } from './hooks/firebase'
 import { useState } from 'react';
 import { addUser, addRole } from './hooks/userSlice';
 import { useDispatch } from 'react-redux';
@@ -29,20 +27,27 @@ const SignIn = () => {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
 
-  const dbRef = ref(db);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const abortCont = new AbortController();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    get(child(dbRef, `users/${userName}`)).then((snapshot) => {
-      if (snapshot.exists()) {
+    fetch('http://localhost:4000/users/' + userName, { signal: abortCont.signal })
+    .then(res => {
+      if (!res.ok) {
+        throw Error('could not fetch the data for that resource');
+      }
+      return res.json();
+    })
+    .then((data) => {
+      if (data) {
         setBadUser(false);
-        if (password === snapshot.val().password) {
+        if (password === data.password) {
           setBadPass(false);
           dispatch(addUser(userName));
-          dispatch(addRole(snapshot.val().role));
+          dispatch(addRole(data.role));
           console.log(`Welcome! ${userName}`);
           navigate('/react-tutorial');
         } else {
@@ -52,16 +57,24 @@ const SignIn = () => {
         setBadUser(true);
         console.log("No user found");
       }
-    }).catch((error) => {
+    })
+    .catch((error) => {
       console.error(error);
     });
   }
 
   const continueForgot = () => {
-    get(child(dbRef, `users/${forgotuser}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        setRecoveryQ(snapshot.val().recoveryQuestion);
-        setRecoveryAns(snapshot.val().recoveryAnswer);
+    fetch('http://localhost:4000/users/' + forgotuser, { signal: abortCont.signal })
+    .then(res => {
+      if (!res.ok) {
+        throw Error('could not fetch the data for that resource');
+      }
+      return res.json();
+    })
+    .then((data) => {
+      if (data) {
+        setRecoveryQ(data.recoveryQuestion);
+        setRecoveryAns(data.recoveryAnswer);
         setGoodUser(true);
         setShowNextBtn(false);
         setBadUserForgot(false);
@@ -86,9 +99,14 @@ const SignIn = () => {
 
   const submitRecoveryPass = (e) => {
     e.preventDefault();
-    update(ref(db, 'users/' + forgotuser), {
-      password: newPassword
-    }).then(() => {
+    fetch('http://localhost:4000/users/' + forgotuser, { 
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        password: newPassword
+      })
+     })
+    .then(() => {
       setPasswordChanged(true);
       setTimeout(() => {
         setClickForgot(false);
@@ -99,7 +117,7 @@ const SignIn = () => {
         setIncorrectAnswer(false);
         setShowChangePassword(false);
         setNewPassword('');
-        setShowNextBtn(false);
+        setShowNextBtn(true);
         setPasswordChanged(false);
         document.querySelector('.nextBtn').style.display = 'block';
       }, 1000);

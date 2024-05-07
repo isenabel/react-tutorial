@@ -20,6 +20,9 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### `Backend database`
+### Backend database (MongoDB)
 
-Firebase realtime database
+Enter directory: `cd backend`
+Install and run:
+`npm install`
+`npm start`

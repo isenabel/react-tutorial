@@ -1,7 +1,6 @@
-import { child, get, ref, remove, update } from "firebase/database";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { db } from './hooks/firebase'
+import { useDispatch, useSelector } from "react-redux";
+import { resetUser } from './hooks/userSlice';
 import { useNavigate } from "react-router-dom";
 import CheckIcon from '@mui/icons-material/Check';
 
@@ -20,45 +19,64 @@ const MyProfile = () => {
   const [willEditPass, setWillEditPass] = useState(false);
   const [willEdit, setWillEdit] = useState(false);
 
-  const dbRef = ref(db);
   const navigate = useNavigate();
   const deleteContainer = document.querySelector('.deleteMsgBack');
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    get(child(dbRef, `users/${user}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        setFullName(snapshot.val().fullName);
-        setNewFullName(snapshot.val().fullName);
-        setPassword(snapshot.val().password);
+    fetch('http://localhost:4000/users/' + user)
+      .then(res => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data) {
+          setFullName(data.fullName);
+          setNewFullName(data.fullName);
+          setPassword(data.password);
 
-        const passSplit = password.split('');
-        const hiddenPass = passSplit.map(char => char.replace(/[\w\W]/, '*')).join('');
-        setPasswordHidden(hiddenPass);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+          const passSplit = password.split('');
+          const hiddenPass = passSplit.map(char => char.replace(/[\w\W]/, '*')).join('');
+          setPasswordHidden(hiddenPass);
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
 
-  }, [dbRef, password, user]);
+  }, [password, user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (willEditName) {
-      update(ref(db, 'users/' + user), {
-        fullName: newfullName
-      }).then(() => {
-        setFullName(newfullName);
-        cancelChanges();
-      });
+      fetch('http://localhost:4000/users/' + user, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: newfullName
+        })
+      })
+        .then(() => {
+          setFullName(newfullName);
+          cancelChanges();
+        });
     }
     if (willEditPass) {
       if (oldPassword === password) {
-        update(ref(db, 'users/' + user), {
-          password: newPassword
-        }).then(() => {
-          setPasswordHidden(newPassword.split('').map(char => char.replace(/[\w\W]/, '*')).join(''));
-          cancelChanges();
-        });
+        fetch('http://localhost:4000/users/' + user, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            password: newPassword
+          })
+        })
+          .then(() => {
+            setPasswordHidden(newPassword.split('').map(char => char.replace(/[\w\W]/, '*')).join(''));
+            document.querySelector('.oldPassword').classList.remove('input-notvalid');
+            cancelChanges();
+          });
       } else {
         document.querySelector('.oldPassword').classList.add('input-notvalid');
       }
@@ -66,6 +84,7 @@ const MyProfile = () => {
   }
 
   const editName = () => {
+    setNewFullName(fullName);
     setWillEdit(true);
     setWillEditName(true);
   }
@@ -82,7 +101,6 @@ const MyProfile = () => {
     setNewFullName(fullName);
     setNewPassword('');
     setOldPassword('');
-    document.querySelector('.oldPassword').classList.remove('input-notvalid');
   }
 
   const confirmDeleteUser = () => {
@@ -96,12 +114,18 @@ const MyProfile = () => {
   }
 
   const deleteUser = () => {
-    const userRef = ref(db, 'users/' + user);
-    remove(userRef).then(() => {
-      setConfirmDelete(false);
-      setUserDeleted(true);
-      goToHome();
-    });
+    fetch('http://localhost:4000/users/' + user, {
+      method: 'DELETE'
+    })
+      .then(() => {
+        setConfirmDelete(false);
+        setUserDeleted(true);
+        dispatch(resetUser());
+        goToHome();
+      })
+      .catch((err => {
+        console.log(err);
+      }));
   }
 
   function goToHome() {
