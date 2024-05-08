@@ -43,13 +43,12 @@ const BlogList = ({ blogs, title, reversed }) => {
       <h1>{title}</h1>
       <div className="blogContainers">
         {newData.map((blog) => (
-          <article className="blog-preview" key={blog[0]}>
-            <Link to={`/blogs/${blog[0]}`}>
+          <article className="blog-preview" key={blog._id}>
+            <Link to={`/blogs/${blog._id}`}>
               <img src={default_image} alt="Blog"></img>
-              {/* <h2>{blog[1].title}</h2> */}
-              <h2>{limitCaracters(blog[1].title)}</h2>
-              <p className="author">Writen by: <b>{blog[1].author}</b></p>
-              <p className="blogDate"><b>Created at: </b>{convertDate(blog[1].date)}</p>
+              <h2>{limitCaracters(blog.title)}</h2>
+              <p className="author">Writen by: <b>{blog.author}</b></p>
+              <p className="blogDate"><b>Created at: </b>{convertDate(blog.date)}</p>
             </Link>
           </article>
         ))}

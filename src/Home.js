@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import BlogList from "./BlogList";
-// import useFetch from "./useFetch";
-import useFirebase from "./hooks/useFirebase";
+import useFetch from "./hooks/useFetch";
 
 const Home = () => {
 
-  const { data: blogs, isPending, error } = useFirebase("GET", null, false);
-  // const { data: blogs, isPending, error } = useFetch('http://localhost:4000/blogs');
+  const { data: blogs, isPending, error } = useFetch('http://localhost:4000/blogs', 10);
 
   return (
     <div className="home">

@@ -1,31 +1,25 @@
 import { useEffect, useState } from "react";
-import useFirebase from "./hooks/useFirebase";
 import BlogList from "./BlogList";
 import Pagination from "./Pagination";
 import './styles/AllBlogs.css';
 import { useParams } from "react-router-dom";
+import useFetch from "./hooks/useFetch";
 
 const AllBlogs = () => {
   const { author } = useParams();
-  const { data, isPending, error } = useFirebase("GET", null, true);
+  const { data, isPending, error } = useFetch('http://localhost:4000/blogs');
   const [pageBlogs, setPageBlogs] = useState(null);
   const [blogs, setBlogs] = useState();
 
   useEffect(() => {
     // Filter by author
     if (author && data) {
-      for (const key in data) {
-        if (Object.hasOwnProperty.call(data[key], 'author')) {
-          if (data[key].author === author) {
-            const element = Object.fromEntries(Object.entries(data).filter((key) => key[1].author === author));
-            setBlogs(Object.entries(element));
-            setPageBlogs(Object.entries(element));
-          }
-        }
-      }
+      const filteredData = data.filter((element) => element.author === author);
+      setBlogs(filteredData);
+      setPageBlogs(filteredData);
     } else {
       if (data) {
-        setBlogs(Object.entries(data));
+        setBlogs(data);
       }
     }
   }, [data, author]);

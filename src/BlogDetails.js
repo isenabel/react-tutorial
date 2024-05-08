@@ -1,14 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import CheckIcon from '@mui/icons-material/Check';
 import { useEffect, useState } from "react";
-import { db } from './hooks/firebase'
-import { ref, remove } from 'firebase/database';
-import useFirebase from "./hooks/useFirebase";
 import { useSelector } from "react-redux";
+import useFetch from "./hooks/useFetch";
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const { data: blog, isPending, error } = useFirebase('GET', id, null);
+  const { data: blog, isPending, error } = useFetch('http://localhost:4000/blogs/' + id);
   const navigate = useNavigate();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [blogDeleted, setBlogDeleted] = useState(false);
@@ -34,10 +32,10 @@ const BlogDetails = () => {
         month: 'long',
         day: 'numeric',
       };
-  
+
       const newDate = new Date(blog.date);
       setDateConverted(new Intl.DateTimeFormat('en-US', dateOptions).format(newDate));
-  
+
       if (currentUser === blog.author) {
         setCanDelete(true);
       };
@@ -49,13 +47,17 @@ const BlogDetails = () => {
     deleteContainer.classList.remove('hide');
   }
 
-  const deleteBlog = () => {
-    const blogRef = ref(db, 'blogs/' + id);
-    remove(blogRef).then(() => {
-      setConfirmDelete(false);
-      setBlogDeleted(true);
-      goToHome();
-    });
+  const deleteBlog = async () => {
+    await fetch('http://localhost:4000/blogs/' + id, {
+      method: 'DELETE'
+    })
+      .then(async (res) => {
+        console.log( await res.text()); 
+        setConfirmDelete(false);
+        setBlogDeleted(true);
+        goToHome();
+      })
+      .catch(err => console.log(err));
   }
 
   function cancelDelete() {

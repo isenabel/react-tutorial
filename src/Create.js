@@ -1,7 +1,5 @@
-import { push, ref, serverTimestamp } from "firebase/database";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "./hooks/firebase";
 import { useSelector } from "react-redux";
 
 const Create = () => {
@@ -12,13 +10,18 @@ const Create = () => {
 
   const author = useSelector((state) => state.currentUser.currentUser);
 
-  function addBlog({ title, body }) {
-    push(ref(db, "blogs/"), {
-      title: title,
-      body: body,
-      author: author,
-      date: serverTimestamp()
-    }).then(() => {
+  async function addBlog({ title, body }) {
+   await fetch('http://localhost:4000/blogs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: title,
+        body: body,
+        author: author,
+        date: Date.now()
+      })
+    }).then(async (res) => {
+      console.log(await res.text());
       setIsPending(false);
       navigate('/react-tutorial');
     });

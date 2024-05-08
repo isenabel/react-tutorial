@@ -495,10 +495,6 @@ body {
 }
 
 /* blog details page */
-.blog-details {
-  height: 100%;
-}
-
 .blog-details>article {
   height: 100%;
   display: flex;
@@ -517,8 +513,8 @@ body {
 }
 
 .blog-details button {
-  background: var(--titlePrimaryColor);
-  color: var(--btnTextColor);
+  background: #b00000;
+  color: var(--bodyTextColor);
   font-size: 14px;
   line-height: 1;
   font-weight: 700;

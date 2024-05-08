@@ -5,10 +5,7 @@ const blogSchema = new Schema({
   title: { type: String, required: true },
   body: { type: String, required: true },
   author: { type: String, required: true },
-  date: {
-    type: Number,
-    default: Date.now
-  }
+  date: { type: Number }
 })
 
 const userSchema = new Schema({

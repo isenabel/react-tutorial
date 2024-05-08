@@ -7,7 +7,34 @@ router.get('/blogs', async (req, res) => {
 
   if (blogsData) {
     res.json(blogsData)
+  } else {
+    res.send('Data not found');
   }
+
+  res.end()
+})
+
+router.get('/blogs/:id', async (req, res) => {
+  const blogsData = await schemas.Blogs.findById(req.params.id).exec()
+
+  if (blogsData) {
+    res.json(blogsData)
+  } else {
+    res.send('Data not found');
+  }
+  res.end();
+})
+
+router.get('/blogs/all/:limit', async (req, res) => {
+  const blogsData = await schemas.Blogs.find({}).sort({date: -1}).limit(req.params.limit).exec()
+
+  if (blogsData) {
+    res.json(blogsData)
+  } else {
+    res.send('Data not found');
+  }
+
+  res.end()
 })
 
 router.post('/blogs', async (req, res) => {
@@ -25,6 +52,18 @@ router.post('/blogs', async (req, res) => {
   res.end()
 })
 
+router.delete('/blogs/:id', async (req, res) => {
+  const deleteBlog = await schemas.Blogs.findByIdAndDelete(req.params.id);
+
+  if (deleteBlog) {
+    res.send('Blog Deleted');
+  } else {
+    res.send('An error ocurred');
+  }
+  
+  res.end()
+})
+
 // ----------- Users----------------
 
 router.get('/users', async (req, res) => {
@@ -32,14 +71,24 @@ router.get('/users', async (req, res) => {
 
   if (usersData) {
     res.json(usersData)
+  } else {
+    res.send('Error getting the users');
   }
+
+  res.end()
 })
 
 router.get('/users/:username', async (req, res) => {
 
   const userData = await schemas.Users.findOne({ username: req.params.username }).exec();
 
-  res.json(userData)
+  if (userData) {
+    res.json(userData)
+  } else {
+    res.send('Error getting the user');
+  }
+
+  res.end()
 })
 
 router.post('/users', async (req, res) => {
@@ -96,8 +145,15 @@ router.put('/users/:username', async (req, res) => {
 router.delete('/users/:username', async (req, res) => {
   const filter = { username: req.params.username };
 
-  await schemas.Users.findOneAndDelete(filter);
+  const deleteUser = await schemas.Users.findOneAndDelete(filter);
 
+  if (deleteUser) {
+    res.send('Blog Deleted');
+  } else {
+    res.send('Error: user not deleted')
+  }
+
+  res.end()
 })
 
 module.exports = router
