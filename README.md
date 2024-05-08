@@ -22,7 +22,10 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ### Backend database (MongoDB)
 
-Enter directory: `cd backend`
+Enter directory: `cd backend`.
+
 Install and run:
+
 `npm install`
+
 `npm start`
