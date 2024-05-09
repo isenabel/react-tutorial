@@ -30,11 +30,16 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const abortCont = new AbortController();
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:4000/users/' + userName, { signal: abortCont.signal })
+    await fetch('http://localhost:4000/users/login', { 
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        username: userName,
+        password: password
+      })
+    })
     .then(res => {
       if (!res.ok) {
         throw Error('could not fetch the data for that resource');
@@ -42,9 +47,9 @@ const SignIn = () => {
       return res.json();
     })
     .then((data) => {
-      if (data) {
+      if (data.username) {
         setBadUser(false);
-        if (password === data.password) {
+        if (data.password) {
           setBadPass(false);
           dispatch(addUser(userName));
           dispatch(addRole(data.role));
@@ -55,7 +60,6 @@ const SignIn = () => {
         }
       } else {
         setBadUser(true);
-        console.log("No user found");
       }
     })
     .catch((error) => {
@@ -64,7 +68,7 @@ const SignIn = () => {
   }
 
   const continueForgot = () => {
-    fetch('http://localhost:4000/users/' + forgotuser, { signal: abortCont.signal })
+    fetch('http://localhost:4000/users/' + forgotuser)
     .then(res => {
       if (!res.ok) {
         throw Error('could not fetch the data for that resource');
@@ -130,7 +134,7 @@ const SignIn = () => {
         <form onSubmit={handleSubmit} className='form-cont'>
           <h1 className='login-title'>Sign in</h1>
           <div className="username-box">
-            {badUser && <p className='badUser'>Username doesn't exist or incorrect</p>}
+            {badUser && <p className='badUser'>Username doesn't exist</p>}
             <input
               type="text"
               placeholder='Username'

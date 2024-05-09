@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const schemas = require('../models/schemas')
+const bcrypt = require("bcrypt")
+
+const saltRounds = 10;
 
 router.get('/blogs', async (req, res) => {
   const blogsData = await schemas.Blogs.find({}).exec()
@@ -26,7 +29,7 @@ router.get('/blogs/:id', async (req, res) => {
 })
 
 router.get('/blogs/all/:limit', async (req, res) => {
-  const blogsData = await schemas.Blogs.find({}).sort({date: -1}).limit(req.params.limit).exec()
+  const blogsData = await schemas.Blogs.find({}).sort({ date: -1 }).limit(req.params.limit).exec()
 
   if (blogsData) {
     res.json(blogsData)
@@ -60,42 +63,63 @@ router.delete('/blogs/:id', async (req, res) => {
   } else {
     res.send('An error ocurred');
   }
-  
+
   res.end()
 })
 
 // ----------- Users----------------
 
-router.get('/users', async (req, res) => {
-  const usersData = await schemas.Users.find({}).exec()
-
-  if (usersData) {
-    res.json(usersData)
-  } else {
-    res.send('Error getting the users');
-  }
-
-  res.end()
-})
-
 router.get('/users/:username', async (req, res) => {
 
   const userData = await schemas.Users.findOne({ username: req.params.username }).exec();
 
-  if (userData) {
-    res.json(userData)
-  } else {
-    res.send('Error getting the user');
+  res.json(userData)
+
+  res.end()
+})
+
+router.post('/users/login', async (req, res) => {
+
+  const username = req.body.username;
+  const password = req.body.password;
+
+  const userData = {
+    username: false,
+    password: false
+  };
+
+  const rawUserData = await schemas.Users.findOne({ username: username }).exec();
+
+  if (rawUserData) {
+    if (username === rawUserData.username) userData.username = true;
+
+    await bcrypt
+      .compare(password, rawUserData.password)
+      .then(res => {
+        userData.password = res;
+      })
+      .catch(err => console.error(err.message))
   }
+
+  res.json(userData)
 
   res.end()
 })
 
 router.post('/users', async (req, res) => {
-  const { username, fullName, password, recoveryAnswer, recoveryQuestion, role } = req.body
+  const { username, fullName, password, recoveryAnswer, recoveryQuestion, role } = req.body;
+
+  let hashPassword = '';
+
+  await bcrypt
+    .hash(password, saltRounds)
+    .then(hash => {
+      hashPassword = hash;
+    })
+    .catch(err => console.error(err.message))
 
   const newUser = new schemas.Users({
-    username: username, fullName: fullName, password: password,
+    username: username, fullName: fullName, password: hashPassword,
     recoveryAnswer: recoveryAnswer, recoveryQuestion: recoveryQuestion,
     role: role
   })
