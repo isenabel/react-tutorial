@@ -12,7 +12,6 @@ const MyProfile = () => {
   const [password, setPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [passwordHidden, setPasswordHidden] = useState('');
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [userDeleted, setUserDeleted] = useState(false);
   const [willEditName, setWillEditName] = useState(false);
@@ -37,10 +36,6 @@ const MyProfile = () => {
           setFullName(data.fullName);
           setNewFullName(data.fullName);
           setPassword(data.password);
-
-          const passSplit = password.split('');
-          const hiddenPass = passSplit.map(char => char.replace(/[\w\W]/, '*')).join('');
-          setPasswordHidden(hiddenPass);
         }
       }).catch((error) => {
         console.error(error);
@@ -48,10 +43,10 @@ const MyProfile = () => {
 
   }, [password, user]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (willEditName) {
-      fetch('http://3.142.12.117:80/users/' + user, {
+      await fetch('http://3.142.12.117:80/users/' + user, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -64,22 +59,37 @@ const MyProfile = () => {
         });
     }
     if (willEditPass) {
-      if (oldPassword === password) {
-        fetch('http://3.142.12.117:80/users/' + user, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            password: newPassword
-          })
+      await fetch('http://3.142.12.117:80/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: user,
+          password: oldPassword
         })
-          .then(() => {
-            setPasswordHidden(newPassword.split('').map(char => char.replace(/[\w\W]/, '*')).join(''));
-            document.querySelector('.oldPassword').classList.remove('input-notvalid');
-            cancelChanges();
-          });
-      } else {
-        document.querySelector('.oldPassword').classList.add('input-notvalid');
-      }
+      })
+        .then(res => {
+          if (!res.ok) {
+            throw Error('could not fetch the data for that resource');
+          }
+          return res.json();
+        })
+        .then(async (data) => {
+          if (data.password) {
+            await fetch('http://3.142.12.117:80/users/' + user, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                password: newPassword
+              })
+            })
+              .then(() => {
+                document.querySelector('.oldPassword').classList.remove('input-notvalid');
+                cancelChanges();
+              });
+          } else {
+            document.querySelector('.oldPassword').classList.add('input-notvalid');
+          }
+        })
     }
   }
 
@@ -166,12 +176,6 @@ const MyProfile = () => {
             }
           </div>
           <div className="password-cont">
-            {!willEditPass &&
-              <div className="password-read flexrow">
-                <p className="userKey"><b>Password:</b></p>
-                <p className="password-hidden userValue">{passwordHidden}</p>
-              </div>
-            }
             {willEditPass &&
               <div className="password-edit flexrow">
                 <p className="userKey"><b>Password:</b></p>
