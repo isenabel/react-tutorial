@@ -31,21 +31,21 @@ export default function NavBar() {
 
   function logOut() {
     dispatch(resetUser());
-    navigate('/react-tutorial');
+    navigate('/');
   }
 
   return (
     <nav className="navbar">
       <div>
-        <Link to={`/react-tutorial`}>
+        <Link to={`/`}>
           <div className="logoContainer">
             <Logo />
             <h1>BLOG TEST</h1>
           </div>
         </Link>
         <div className="links">
-          <Link to={`/react-tutorial`} className='desktop'>Home</Link>
-          <Link to={`/react-tutorial`} className='homeIcon navbarIcon mobile'><HomeIcon /></Link>
+          <Link to={`/`} className='desktop'>Home</Link>
+          <Link to={`/`} className='homeIcon navbarIcon mobile'><HomeIcon /></Link>
           {currentUser && <Link to={`/create`} className='desktop'>New Blog</Link>}
           {currentUser && <Link to={`/create`} className='newBlogIcon navbarIcon mobile'><NoteAddIcon /></Link>}
           {!currentUser && <Link to={`/signUp`} className='signUp-btn desktop'>Sign up</Link>}

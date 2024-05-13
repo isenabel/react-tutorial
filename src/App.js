@@ -50,7 +50,6 @@ export default function App() {
         <div className="content">
           <Routes>
             <Route path='/' element={<Home />}></Route>
-            <Route path='/react-tutorial' element={<Home />}></Route>
             <Route path='/all' element={<AllBlogs />}></Route>
             {currentUser && <Route path='/all/:author' element={<AllBlogs />}></Route>}
             <Route path='/blogs/:id' element={<BlogDetails />}></Route>

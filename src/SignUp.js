@@ -68,7 +68,7 @@ const SignUp = () => {
               .then(() => {
                 dispatch(addUser(userName));
                 dispatch(addRole('member'));
-                navigate('/react-tutorial');
+                navigate('/');
               })
               .catch(err => {
                 console.log(err);

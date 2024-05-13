@@ -23,7 +23,7 @@ const Create = () => {
     }).then(async (res) => {
       console.log(await res.text());
       setIsPending(false);
-      navigate('/react-tutorial');
+      navigate('/');
     });
   }
 

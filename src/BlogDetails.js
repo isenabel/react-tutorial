@@ -67,7 +67,7 @@ const BlogDetails = () => {
 
   function goToHome() {
     setTimeout(() => {
-      navigate('/react-tutorial');
+      navigate('/');
     }, 1000);
   }
 

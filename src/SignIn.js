@@ -54,7 +54,7 @@ const SignIn = () => {
           dispatch(addUser(userName));
           dispatch(addRole(data.role));
           console.log(`Welcome! ${userName}`);
-          navigate('/react-tutorial');
+          navigate('/');
         } else {
           setBadPass(true);
         }
