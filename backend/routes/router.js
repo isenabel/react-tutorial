@@ -180,4 +180,6 @@ router.delete('/users/:username', async (req, res) => {
   res.end()
 })
 
+// ============= Fuctions ============= //
+
 module.exports = router
