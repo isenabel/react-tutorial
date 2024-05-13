@@ -24,7 +24,7 @@ const MyProfile = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch('http://3.142.12.117:80/users/' + user)
+    fetch('https://3.142.12.117:80/users/' + user)
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -46,7 +46,7 @@ const MyProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (willEditName) {
-      await fetch('http://3.142.12.117:80/users/' + user, {
+      await fetch('https://3.142.12.117:80/users/' + user, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -59,7 +59,7 @@ const MyProfile = () => {
         });
     }
     if (willEditPass) {
-      await fetch('http://3.142.12.117:80/users/login', {
+      await fetch('https://3.142.12.117:80/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -75,7 +75,7 @@ const MyProfile = () => {
         })
         .then(async (data) => {
           if (data.password) {
-            await fetch('http://3.142.12.117:80/users/' + user, {
+            await fetch('https://3.142.12.117:80/users/' + user, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -124,7 +124,7 @@ const MyProfile = () => {
   }
 
   const deleteUser = () => {
-    fetch('http://3.142.12.117:80/users/' + user, {
+    fetch('https://3.142.12.117:80/users/' + user, {
       method: 'DELETE'
     })
       .then(() => {

@@ -38,7 +38,7 @@ const SignUp = () => {
   }
 
   function checkAvaliable() {
-    fetch('http://3.142.12.117:80/users/' + userName, { signal: abortCont.signal })
+    fetch('https://3.142.12.117:80/users/' + userName, { signal: abortCont.signal })
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -53,7 +53,7 @@ const SignUp = () => {
           setNotAvaliableUser(false);
           setAvaliableUser(true);
           if (create) {
-            fetch('http://3.142.12.117:80/users', {
+            fetch('https://3.142.12.117:80/users', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({

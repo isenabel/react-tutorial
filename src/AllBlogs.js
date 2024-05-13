@@ -7,7 +7,7 @@ import useFetch from "./hooks/useFetch";
 
 const AllBlogs = () => {
   const { author } = useParams();
-  const { data, isPending, error } = useFetch('http://3.142.12.117:80/blogs');
+  const { data, isPending, error } = useFetch('https://3.142.12.117:80/blogs');
   const [pageBlogs, setPageBlogs] = useState(null);
   const [blogs, setBlogs] = useState();
 
