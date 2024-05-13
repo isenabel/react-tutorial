@@ -25,7 +25,7 @@ const MyProfile = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch('http://localhost:4000/users/' + user)
+    fetch('http://3.142.12.117:80/users/' + user)
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -51,7 +51,7 @@ const MyProfile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (willEditName) {
-      fetch('http://localhost:4000/users/' + user, {
+      fetch('http://3.142.12.117:80/users/' + user, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -65,7 +65,7 @@ const MyProfile = () => {
     }
     if (willEditPass) {
       if (oldPassword === password) {
-        fetch('http://localhost:4000/users/' + user, {
+        fetch('http://3.142.12.117:80/users/' + user, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -114,7 +114,7 @@ const MyProfile = () => {
   }
 
   const deleteUser = () => {
-    fetch('http://localhost:4000/users/' + user, {
+    fetch('http://3.142.12.117:80/users/' + user, {
       method: 'DELETE'
     })
       .then(() => {

@@ -32,7 +32,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch('http://localhost:4000/users/login', { 
+    await fetch('http://3.142.12.117:80/users/login', { 
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -68,7 +68,7 @@ const SignIn = () => {
   }
 
   const continueForgot = () => {
-    fetch('http://localhost:4000/users/' + forgotuser)
+    fetch('http://3.142.12.117:80/users/' + forgotuser)
     .then(res => {
       if (!res.ok) {
         throw Error('could not fetch the data for that resource');
@@ -103,7 +103,7 @@ const SignIn = () => {
 
   const submitRecoveryPass = (e) => {
     e.preventDefault();
-    fetch('http://localhost:4000/users/' + forgotuser, { 
+    fetch('http://3.142.12.117:80/users/' + forgotuser, { 
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
