@@ -4,8 +4,7 @@ import useFetch from "./hooks/useFetch";
 
 const Home = () => {
 
-  // const { data: blogs, isPending, error } = useFetch('https://3.142.12.117:80/blogs', 10);
-  const { data: blogs, isPending, error } = useFetch('https://localhost:80/blogs', 10);
+  const { data: blogs, isPending, error } = useFetch('https://3.142.12.117:80/blogs', 10);
 
   return (
     <div className="home">
