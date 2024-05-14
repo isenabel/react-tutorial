@@ -485,8 +485,13 @@ body {
 }
 
 .author {
-  color: var(--authorTextColor);
   font-size: 13px;
+}
+
+.author a {
+  color: var(--authorTextColor);
+  display: inline-block;
+  text-decoration: underline;
 }
 
 .blogDate {

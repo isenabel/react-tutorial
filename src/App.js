@@ -51,7 +51,7 @@ export default function App() {
           <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path='/all' element={<AllBlogs />}></Route>
-            {currentUser && <Route path='/all/:author' element={<AllBlogs />}></Route>}
+            <Route path='/all/:author' element={<AllBlogs />}></Route>
             <Route path='/blogs/:id' element={<BlogDetails />}></Route>
             {currentUser && <Route path='/create' element={<Create />}></Route>}
             {currentUser && <Route path='/myProfile' element={<MyProfile />}></Route>}

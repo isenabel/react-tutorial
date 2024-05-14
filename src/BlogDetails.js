@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CheckIcon from '@mui/icons-material/Check';
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -78,7 +78,7 @@ const BlogDetails = () => {
       {blog && (
         <article>
           <h1 className="blogTitle">{blog.title}</h1>
-          <p className="author">Written by: <b>{blog.author}</b></p>
+          <p className="author">Written by: <Link to={`/all/${blog.author}`}><b>{blog.author}</b></Link></p>
           <p className="body">{blog.body}</p>
           <p className="blogDate"><b>Created at: </b>{dateConverted}</p>
           {canDelete && <button onClick={handleClick} className="actionBtn">Delete</button>}
