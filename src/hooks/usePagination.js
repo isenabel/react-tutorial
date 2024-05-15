@@ -18,7 +18,7 @@ function usePagination(items, pageLimit) {
 
   const pageData = () => {
     const initEle = pageNumber * pageLimit;
-    const endEle = initEle + pageLimit - 1;
+    const endEle = initEle + pageLimit;
     const sliced = items.slice(initEle, endEle);
     return sliced;
   };
