@@ -11,7 +11,7 @@ const Create = () => {
   const author = useSelector((state) => state.currentUser.currentUser);
 
   async function addBlog({ title, body }) {
-   await fetch('https://3.142.12.117:80/blogs', {
+   await fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/blogs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
