@@ -24,7 +24,7 @@ const MyProfile = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users/' + user)
+    fetch('http://localhost:8080/users/' + user)
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -46,7 +46,7 @@ const MyProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (willEditName) {
-      await fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users/' + user, {
+      await fetch('http://localhost:8080/users/' + user, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -59,7 +59,7 @@ const MyProfile = () => {
         });
     }
     if (willEditPass) {
-      await fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users/login', {
+      await fetch('http://localhost:8080/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -75,7 +75,7 @@ const MyProfile = () => {
         })
         .then(async (data) => {
           if (data.password) {
-            await fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users/' + user, {
+            await fetch('http://localhost:8080/users/' + user, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -124,7 +124,7 @@ const MyProfile = () => {
   }
 
   const deleteUser = () => {
-    fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users/' + user, {
+    fetch('http://localhost:8080/users/' + user, {
       method: 'DELETE'
     })
       .then(() => {

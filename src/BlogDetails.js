@@ -6,7 +6,7 @@ import useFetch from "./hooks/useFetch";
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const { data: blog, isPending, error } = useFetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/blogs/' + id);
+  const { data: blog, isPending, error } = useFetch('http://localhost:8080/blogs/' + id);
   const navigate = useNavigate();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [blogDeleted, setBlogDeleted] = useState(false);
@@ -48,7 +48,7 @@ const BlogDetails = () => {
   }
 
   const deleteBlog = async () => {
-    await fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/blogs/' + id, {
+    await fetch('http://localhost:8080/blogs/' + id, {
       method: 'DELETE'
     })
       .then(async (res) => {
