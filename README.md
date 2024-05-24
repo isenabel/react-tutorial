@@ -22,10 +22,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ### Backend database (MongoDB)
 
-<!-- Enter directory: `cd backend`.
+Currently access to the database is being blocked because I do not have a domain to register an SSL certificate and use HTTPS instead of HTTP.
 
-Install and run:
-
-`npm install`
-
-`npm start` -->
+Backend-URL: http://blog-backend-dev.us-east-2.elasticbeanstalk.com/blogs
