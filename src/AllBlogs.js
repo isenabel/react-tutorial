@@ -28,7 +28,7 @@ const AllBlogs = () => {
     <div className="allBlogsCont">
       {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
-      {pageBlogs && <BlogList blogs={pageBlogs} title="All Blogs" reversed={false} />}
+      {pageBlogs && <BlogList blogs={pageBlogs} title={author ? `${author}'s Blogs` : 'All blogs'} reversed={false} />}
       {blogs && <Pagination data={blogs} pageLimit={10} setPageItems={setPageBlogs} />}
     </div>
   );
