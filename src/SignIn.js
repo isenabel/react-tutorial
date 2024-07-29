@@ -32,7 +32,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users/login', { 
+    await fetch('http://localhost:8080/users/login', { 
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -68,7 +68,7 @@ const SignIn = () => {
   }
 
   const continueForgot = () => {
-    fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users/' + forgotuser)
+    fetch('http://localhost:8080/users/' + forgotuser)
     .then(res => {
       if (!res.ok) {
         throw Error('could not fetch the data for that resource');
@@ -103,7 +103,7 @@ const SignIn = () => {
 
   const submitRecoveryPass = (e) => {
     e.preventDefault();
-    fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users/' + forgotuser, { 
+    fetch('http://localhost:8080/users/' + forgotuser, { 
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

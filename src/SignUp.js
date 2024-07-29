@@ -38,7 +38,7 @@ const SignUp = () => {
   }
 
   function checkAvaliable() {
-    fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users/' + userName, { signal: abortCont.signal })
+    fetch('http://localhost:8080/users/' + userName, { signal: abortCont.signal })
       .then(res => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -53,7 +53,7 @@ const SignUp = () => {
           setNotAvaliableUser(false);
           setAvaliableUser(true);
           if (create) {
-            fetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/users', {
+            fetch('http://localhost:8080/users', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({

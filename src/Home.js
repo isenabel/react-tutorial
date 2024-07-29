@@ -4,7 +4,7 @@ import useFetch from "./hooks/useFetch";
 
 const Home = () => {
 
-  const { data: blogs, isPending, error } = useFetch('http://blog-backend-dev.us-east-2.elasticbeanstalk.com/blogs', 10);
+  const { data: blogs, isPending, error } = useFetch('http://localhost:8080/blogs', 10);
 
   return (
     <div className="home">

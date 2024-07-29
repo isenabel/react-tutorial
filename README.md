@@ -24,4 +24,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 Currently access to the database is being blocked because I do not have a domain to register an SSL certificate and use HTTPS instead of HTTP.
 
-Backend-URL: http://blog-backend-dev.us-east-2.elasticbeanstalk.com/blogs
+Backend-URL: http://localhost:8080/blogs
